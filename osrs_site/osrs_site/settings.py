@@ -54,7 +54,7 @@ ROOT_URLCONF = 'osrs_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', 'prices/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
