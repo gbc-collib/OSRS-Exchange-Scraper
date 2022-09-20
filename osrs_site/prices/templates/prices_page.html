@@ -23,7 +23,7 @@
 </div></form></p>
 {%if item_data%}
 	<img src = {{ item_data.icon }} >
-	<p>{{ item_data.name }} is at {{ item_data.current.price }}gp at <br></br> {%now "G:i" %} Last Refreshed </p>
+	<p>{{ item_data.name }} Sell price: {{ item_data.low }}gp and Buy Price: {{item_data.high}} at <br></br> {%now "G:i" %} Last Refreshed </p>
 {% endif%}
 {% if not item_exists %}
 <div class="alert alert-dismissible alert-danger">
