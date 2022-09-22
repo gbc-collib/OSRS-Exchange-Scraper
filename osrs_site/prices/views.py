@@ -10,7 +10,7 @@ def search_item_price(request):
 		# create an instance of our form, and fill it with the POST data
 		form = ItemQuery((request.POST))
 		if form.is_valid(): #checks that the request was valid
-			quieried_data = get_price.item_data(request.POST['item_id']).grab_data() #passes string from form into grab_data to get item price
+			quieried_data = get_price.ItemData(request.POST['item_id']).grab_data() #passes string from form into grab_data to get item price
 			time_retrieved = datetime.datetime.now()
 			if quieried_data:
 				return render(request, 'prices_page.html', {'item_exists': True, 'item_data': quieried_data, 'form': form})

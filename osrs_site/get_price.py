@@ -4,11 +4,7 @@ import requests #for handling url requests
 import json #converts string data into usable dictionary
 import datetime
 
-
-ITEM_DATABASE = 'items_osrs.json' #const for item database pulled from online
-
-
-class item_data:
+class ItemData:
 	def __init__(self, item_id): #item name accepts string of item name or iteger of item ID
 		self.item_id = item_id
 		self.item_name = None
@@ -60,7 +56,7 @@ class item_data:
 def main(args):
 	requested_item_data = 0
 	while requested_item_data == 0: #keeps running until item is found maybe not good
-		requested_item_data = item_data(input('What item would you like price info for?\n')).grab_data()
+		requested_item_data = ItemnData(input('What item would you like price info for?\n')).grab_data()
 	time_retrieved = datetime.datetime.now()
 	print(requested_item_data['name'] + 's profit margin is ' + str(requested_item_data['high'] - requested_item_data['low']) + ' at ' + time_retrieved.strftime("%H:%M:%S"))
 	return 0
