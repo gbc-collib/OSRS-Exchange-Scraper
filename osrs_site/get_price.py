@@ -3,6 +3,7 @@
 import requests #for handling url requests
 import json #converts string data into usable dictionary
 import datetime
+from functools import cache
 
 DATABASE = 'data_base.json'
 
@@ -26,11 +27,10 @@ class ItemData:
 		with open(DATABASE, 'r') as f:
 			data = json.load(f)
 		for item in data:
-			if item['id'] == ''.join(self.item_id.lower().split()): #checks name to item id database and normalizes caps to make user friendly
-				self.item_id = item['id']
-				self.name = str(item['name']) #return the id
+			if item['id'] == int(self.item_id): #checks name to item id database and normalizes caps to make user friendly
+				self.item_name = str(item['name']) #return the id
 				return self.item_name
-
+	@cache
 	def grab_data(self): #to handle calling wiki and grabbing raw data to convert to usable format, returns a dictionary of item data if it's valid item, returns 0 if not
 		item_url = 'http://prices.runescape.wiki/api/v1/osrs/latest'
 		headers = {
@@ -57,9 +57,11 @@ class ItemData:
 			return formatted_data
 		return False
 def main(args):
-	requested_item_data = 0
-	while requested_item_data == 0: #keeps running until item is found maybe not good
-		requested_item_data = ItemnData(input('What item would you like price info for?\n')).grab_data()
+	requested_item_data = False
+	while not requested_item_data: #keeps running until item is found maybe not good
+		item_query = '565' #str(input('What item would you like price info for?\n'))
+		requested_item_data = ItemData(item_query)
+		requested_item_data = ItemData(item_query).grab_data()
 	time_retrieved = datetime.datetime.now()
 	print(requested_item_data['name'] + 's profit margin is ' + str(requested_item_data['high'] - requested_item_data['low']) + ' at ' + time_retrieved.strftime("%H:%M:%S"))
 	return 0
