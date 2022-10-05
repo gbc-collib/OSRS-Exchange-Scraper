@@ -39,17 +39,16 @@ def calculate_profit():
     item_profit = {}
     for item in flips.child:
         profit = int(item.data['high'])
-        print(item.data['name'] + str(item.data['high']))
+       # print(item.data['name'] + str(item.data['high']))
         for ingredient in item.child:
-            print(ingredient['name'] + str(ingredient['low']))
+            #print(ingredient['name'] + str(ingredient['low']))
             profit -= int(ingredient['low'])
 #         - (int(item.child[0]['low']) + int(item.child[1]['low']))
         item_profit[item.data['name']] = profit
-    print(item_profit)
-    return item_profit
+    return dict(sorted(item_profit.items(), key=lambda item: item[1], reverse=True))
 
 def main(args):
-    calculate_profit()
+    print(calculate_profit())
 
 
 if __name__ == '__main__':
