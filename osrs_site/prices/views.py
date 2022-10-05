@@ -3,6 +3,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 import get_price
 from prices.forms import ItemQuery
+import quick_money
 import datetime
 
 def search_item_price(request):
@@ -21,3 +22,6 @@ def search_item_price(request):
 	#initiate form to take user input
 	#time_retrieved.strftime("%H:%M:%S"))
 	return render(request, 'prices_page.html', {'item_exists': True, 'form': form})
+
+def quick_money(request):
+	return render(request, 'quick_money.html')
