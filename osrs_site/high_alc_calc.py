@@ -10,12 +10,24 @@ def grab_alc_price():
 		high_alc_values = {}
 		for item in itemslist:
 			high_alc_values[item[1]['name']] = item[1]['value']
-		import pdb; pdb.set_trace()
+	return high_alc_values
 
+def alc_profit(items=grab_alc_price(), margin=10): #takes dict keyed by item name with value of high alc, defaults to all items
+	nature_rune_cost = get_price.ItemData('561').grab_data()['low']
+	profittable_alc = {}
+	for name, price in items.items():
+		ge_price = get_price.ItemData(name).grab_data()
+		if not ge_price:
+			continue
+		ge_price = ge_price['low']
+		actual_margin = ge_price - nature_rune_cost
+		if  actual_margin > margin:
+			profittable_alc[name] = actual_margin
+	return profittable_alc
 
 def main(args):
-	get_price.item_data(565)
-	grab_alc_price()
+	print(alc_profit())
+	
 	return 0
 
 if __name__ == '__main__':
