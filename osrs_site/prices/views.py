@@ -1,5 +1,6 @@
 from django.shortcuts import render
-import datetime
+from django_tables2 import MultiTableMixin, RequestConfig, SingleTableMixin, SingleTableView
+from django.core.paginator import Paginator
 
 import get_price
 from prices.forms import ItemQuery
@@ -27,15 +28,22 @@ def search_item_price(request):
     return render(request, 'prices_page.html', {'item_exists': True, 'form': form})
 
 
+def create_high_alc_data(force=False):
+    if not HighAlc.objects or force:
+        alc = high_alc_calc.alc_profit()
+        sorted_alc = high_alc_calc.sort_alc_list(alc)
+        for key in sorted_alc:
+            HighAlc.objects.create(item_name=key, profit=sorted_alc[key])
+
+
 def high_alc_calculator(request):
-    alc = high_alc_calc.alc_profit()
-    sorted_alc = high_alc_calc.sort_alc_list(alc)
-    for key in sorted_alc:
-        HighAlc.objects.create(item_name=key, profit=sorted_alc[key])
     table = HighAlcTable(HighAlc.objects.all())
+    RequestConfig(request, paginate={'per_page': 15}).configure(table)
+
     return render(request, 'high_alc_calc.html', {
-        "table": table
-    })
+        'table': table
+    }
+                  )
 
 
 def quick_money(request):

@@ -9,5 +9,5 @@ class HighAlcTable(tables.Table):
         model = HighAlc
         sequence = ('item_name', 'profit')
         attrs = {"class": "table table-hover"}
-        template_name = 'django_tables2/bootstrap.html'
+        template_name = 'table.html'
         fields = ('item_name', 'profit')
