@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 import get_price
 from prices.forms import ItemQuery
 from .tables import HighAlcTable
-from .models import HighAlc
+from .models import HighAlc, QuickFlips, Ingredient
 import quick_money
 import high_alc_calc
 
@@ -46,5 +46,7 @@ def high_alc_calculator(request):
                   )
 
 
-def quick_money(request):
+def quick_flips(request):
+    quick_money.build_profits_db(quick_money.update_flip_list())
+    print(QuickFlips.objects.item_name)
     return render(request, 'quick_money.html', )
