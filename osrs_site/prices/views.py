@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django_tables2 import MultiTableMixin, RequestConfig, SingleTableMixin, SingleTableView
-from django.core.paginator import Paginator
+from django.db.models import Sum
 
 import get_price
 from prices.forms import ItemQuery
-from .tables import HighAlcTable
+from .tables import HighAlcTable, AllFlipsTable, FlipsTable
 from .models import HighAlc, QuickFlips, Ingredient
 import quick_money
 import high_alc_calc
+from pprint import PrettyPrinter
 
 
 def search_item_price(request):
@@ -46,7 +47,29 @@ def high_alc_calculator(request):
                   )
 
 
-def quick_flips(request):
+def quick_flips_all(request):
     quick_money.build_profits_db(quick_money.update_flip_list())
-    print(QuickFlips.objects.item_name)
-    return render(request, 'quick_money.html', )
+    print(Ingredient.objects.first())
+    for object in QuickFlips.objects.all():
+        print(object)
+    tables_list = [AllFlipsTable(QuickFlips.objects.all())]
+
+    return render(request, 'quick_money.html', {
+        'tables': tables_list
+    }
+                  )
+
+
+def quick_flips_db(request):
+    tables_list = []
+    quick_money.build_profits_db(quick_money.update_flip_list())
+    for parent_object in QuickFlips.objects.all():
+        # print(Ingredient.objects.filter(parent_item=parent_object.id))
+        items = Ingredient.objects.filter(parent_item=parent_object.id)
+
+        tables_list.append(FlipsTable(items))
+        # total = items.annotate(Sum('item_price'))
+    return render(request, 'quick_money.html', {
+        'tables': tables_list,
+    }
+                  )

@@ -48,11 +48,15 @@ def node_to_profit_dict() -> dict:
 
 def build_profits_db(profit_node):
     ing_list = []
+    QuickFlips.objects.all().delete()  # These two lines clear the database because this function will only be called
+    # when it should be rebuilt
+    Ingredient.objects.all().delete()
     for parent_item in profit_node.child:
         profit = int(parent_item.data['high'])
         ing_list.clear()
         # print(item.data['name'] + str(item.data['high']))
-        finished = QuickFlips.objects.create(item_name=parent_item, profit=profit)
+        finished = QuickFlips.objects.create(item_name=parent_item.data['name'], profit=profit,
+                                             item_price=parent_item.data['high'])
         for ingredient in parent_item.child:
             ing_list.append(ingredient)
             # print(ingredient['name'] + str(ingredient['low']))
@@ -60,7 +64,8 @@ def build_profits_db(profit_node):
             # - (int(item.child[0]['low']) + int(item.child[1]['low']))
             Ingredient.objects.create(item_name=ingredient['name'],
                                       item_price=ingredient['low'],
-                                      parent_item=finished)
+                                      parent_item=finished, profit=0)
+        Ingredient.objects.filter(parent_item=finished).update(profit=profit)
 
 
 def main(args):
