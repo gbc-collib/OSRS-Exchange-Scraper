@@ -34,7 +34,10 @@ class FlipsTable(tables.Table):
 class AllFlipsTable(tables.Table):
     class Meta:
         model = QuickFlips
-        sequence = ("parent", "profit")
+        sequence = ("item_name", "profit")
         attrs = {'class': 'table table-hover'}
-        template_name = 'table.html'
-        fields = ("parent", "profit")
+        template_name = 'list_table.html'
+        fields = ("item_name", "profit")
+        item_name = tables.Column(accessor='item_name')
+        item_price = tables.Column(accessor='item_price')
+        profit = tables.Column(accessor='profit')
