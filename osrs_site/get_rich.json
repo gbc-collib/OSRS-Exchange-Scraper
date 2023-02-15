@@ -1,23 +1,24 @@
 {
-   "diamond bolts":[
-      "diamond bolt tips",
-      "adamant bolts"
-   ],
-   "ruby bolts":[
-      "ruby bolt tips",
-      "adamant bolts"
-   ],
-   "Ruby dragon bolts (e)":[
-      "Fire rune",
-      "Blood rune",
-      "Cosmic rune"
-   ],
-   "Diamond dragon bolts":[
-      "dragon bolts",
-      "diamond bolt tips"
-   ],
-   "Ruby dragon bolts":[
-      "dragon bolts",
-      "Ruby bolt tips"
-   ]
+  "diamond bolts": [
+    "diamond bolt tips",
+    "adamant bolts"
+  ],
+  "ruby bolts": [
+    "ruby bolt tips",
+    "adamant bolts"
+  ],
+  "Ruby dragon bolts (e)": [
+    "Fire rune",
+    "Blood rune",
+    "Cosmic rune",
+    "Ruby Dragon bolts"
+  ],
+  "Diamond dragon bolts": [
+    "dragon bolts",
+    "diamond bolt tips"
+  ],
+  "Ruby dragon bolts": [
+    "dragon bolts",
+    "Ruby bolt tips"
+  ]
 }
