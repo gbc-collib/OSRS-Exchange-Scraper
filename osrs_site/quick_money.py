@@ -10,7 +10,7 @@ from prices.models import QuickFlips, Ingredient
 
 flip_list = 'get_rich.json'  # a json file containing a graph of items with final product having vertices of ingredients
 
-
+#todo entire file could be simplified once sql is added
 class Node:
     def __init__(self, key):
         self.data = key

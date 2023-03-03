@@ -6,6 +6,7 @@ ITEM_DATABASE = 'data_base.json'
 
 
 def grab_alc_price():
+    # todo change to sql
     with open(ITEM_DATABASE) as f:  # opens prebuilt item database and closes as soon as it's imported
         items_list = json.load(f)
         high_alc_values = {}

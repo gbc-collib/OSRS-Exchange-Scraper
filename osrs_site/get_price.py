@@ -51,6 +51,7 @@ class ItemData():
         API()
 
     def name_to_id(self):
+        # TODO: change to sql database format
         with open('data_base.json', 'r') as f:
             data = json.load(f)
         for item in data:
@@ -62,6 +63,7 @@ class ItemData():
         return False
 
     def id_to_name(self):
+        # TODO: change to sql database format
         with open(DATABASE, 'r') as f:
             data = json.load(f)
         for item in data:
@@ -72,6 +74,7 @@ class ItemData():
 
     def grab_data(
             self):  # to handle calling wiki and grabbing raw data to convert to usable format, returns a dictionary of item data if it's valid item, returns 0 if not
+        # TODO: change to sql database format
         data = API.api_data.json()  # uses response's json handling to return dictoinary of item data
         if self.item_id.isnumeric():  # if passed item name instead of id convert it
             self.id_to_name()
